@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="static/css/styles.css">
+  <!-- Material Icons Link -->
+  <link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+  />
+
+  <!-- Font Awesome Link -->
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+  integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+  crossorigin="anonymous"
+  />
+  <title>Webcam Stream</title>
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
+  <button
+    class="middle none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+    data-ripple-light="true"
+  >
+    Button
+  </button>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          // Set the video source to the stream
+          video.srcObject = stream;
+
+          // Handle autoplay for some browsers
+          video.play();
+
+          setInterval(() => {
+            // Draw the video frame onto the canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg', 0.5);
+
+            fetch('/process_image', {
+              method: 'POST',
+              body: JSON.stringify({ image: imageData }),
+            })
+              .then(response => response.json())
+              .then(data => console.log(data));
+          }, 100); // Send image every 100 milliseconds
+        })
+        .catch(error => {
+          console.error('Error accessing webcam:', error);
+        });
+    });
+  </script>
+</head>
+<body>
+  <video id="video" width="600" height="800"></video>
+  <canvas id="canvas" width="0" height="0"></canvas>
+</body>
+</html>

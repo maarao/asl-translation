@@ -8,6 +8,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/ui')
+def ui():
+    return render_template('pages/ui.html')
+
 @app.route('/process_image', methods=['POST'])
 def process_image():
   data = request.get_json()
