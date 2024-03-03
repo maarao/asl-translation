@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
   <!-- Material Icons Link -->
   <link
   href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -17,18 +18,8 @@
   integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
   crossorigin="anonymous"
   />
-  <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
 
-  <title>Webcam Stream</title>
-  <h1 class="text-2xl font-bold underline">
-    Hello world!
-  </h1>
-  <button
-    class="middle none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-    data-ripple-light="true"
-  >
-    Button
-  </button>
+  <title>Handslate</title>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const video = document.getElementById('video');
@@ -62,8 +53,8 @@
     });
   </script>
 </head>
-<body>
-  <video id="video" width="600" height="800"></video>
-  <canvas id="canvas" width="0" height="0"></canvas>
-</body>
+    <body>
+        <video id="video" width="600" height="800" class="mx-auto"></video>
+        <canvas id="canvas" width="0" height="0"></canvas>
+    </body>
 </html>
