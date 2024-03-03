@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "postcss styles.css -o templates/static/css/styles.css"
+    "build:css": "npx tailwindcss -i ./static/src/input.css -o ./static/css/main.css"
   },
   "keywords": [],
   "author": "",
